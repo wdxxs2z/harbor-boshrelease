@@ -12,8 +12,8 @@ provides:
   - name: adminserver
     type: adminserver
     properties:
-      - port
-      - key
+      - adminserver.port
+      - adminserver.key
 
 consumes:
   - name: jobservice
@@ -26,37 +26,37 @@ consumes:
     type: mysql
 
 properties:
-  port:
+  adminserver.port:
     description: "Adminserver listen port"
     default: 80
-  log_level:
+  adminserver.log_level:
     description: "Adminserver Log Level"
     default: info
-  key:
+  adminserver.key:
     description: "Adminserver key"
 
-  external_url:
+  adminserver.external_url:
     description: "Adminserver external url"
-  auth_mode:
+  adminserver.auth_mode:
     description: "The type of authentication that is used (db_auth: the credentials are stored in a database; ldap_auth: for LDAP authentication"
-  max_job_workers:
+  adminserver.max_job_workers:
     description: "The maximum number of replication workers in job service"
     default: 3
-  self_registration:
+  adminserver.self_registration:
     description: "Enable (on) / Disable (off) the ability for a user to register himself/herself"
     default: off
-  token_expiration:
+  adminserver.token_expiration:
     description: "The expiration time (in minutes) of a token created by token service"
     default: 30
-  verify_remote_cert:
+  adminserver.verify_remote_cert:
     description: "This flag determines whether (on) or not (off) to verify SSL/TLS certificate when Harbor communicates with a remote registry instance. Setting this attribute to off bypasses the SSL/TLS verification, which is often used when the remote instance has a self-signed or untrusted certificate"
     default: on
-  project_creation_restriction:
+  adminserver.project_creation_restriction:
     description: "The flag to control what users have permission to create projects. By default everyone can create a project, set to 'adminonly' such that only admin can create project"
     default: "adminonly"
-  initial_admin_password:
+  adminserver.initial_admin_password:
     description: "The administrator's initial password. This password only takes effect for the first time Harbor launches. After that, this setting is ignored and the administrator's password should be set in the UI"
-  reset:
+  adminserver.reset:
     description: "Reset system configuration"
     default: false
 

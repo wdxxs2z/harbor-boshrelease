@@ -19,16 +19,16 @@ case $1 in
     pid_guard ${PIDFILE} "adminserver"
     echo $$ > ${PIDFILE}
 
-    export PORT="<%= p('port') %>"
+    export PORT="<%= p('adminserver.port') %>"
     export KEY_PATH="/var/vcap/jobs/adminserver/config/key"
-    export LOG_LEVEL="<%= p('log_level') %>"
-    export UI_SECRET="<%= link('ui').p('secret') %>"
-    export JOBSERVICE_SECRET="<%= link('jobservice').p('secret') %>"
+    export LOG_LEVEL="<%= p('adminserver.log_level') %>"
+    export UI_SECRET="<%= link('ui').p('ui.secret') %>"
+    export JOBSERVICE_SECRET="<%= link('jobservice').p('jobservice.secret') %>"
     export JSON_CFG_STORE_PATH="${STORE_DIR}/adminserver.json"
     export IMAGE_STORE_PATH="${STORE_DIR}/images"
     mkdir -p "${IMAGE_STORE_PATH}"
 
-    <% if_p('external_url') do |external_url| %>
+    <% if_p('adminserver.external_url') do |external_url| %>
     export EXT_ENDPOINT="<%= external_url %>"
     export REGISTRY_URL="<%= external_url %>"
     <% end.else do %>
@@ -40,19 +40,19 @@ case $1 in
     export REGISTRY_URL="http://<%= link('nginx').instances.first.address %>:<%= link('nginx').p('http_port') %>"
     <% end %>
     <% end %>
-    export AUTH_MODE="<%= p('auth_mode') %>"
-    export MAX_JOB_WORKERS="<%= p('max_job_workers') %>"
-    export SELF_REGISTRATION="<%= p('self_registration') %>"
-    export TOKEN_EXPIRATION="<%= p('token_expiration') %>"
-    export VERIFY_REMOTE_CERT="<%= p('verify_remote_cert') %>"
-    export PROJECT_CREATION_RESTRICTION="<%= p('project_creation_restriction') %>"
-    export HARBOR_ADMIN_PASSWORD="<%= p('initial_admin_password') %>"
+    export AUTH_MODE="<%= p('adminserver.auth_mode') %>"
+    export MAX_JOB_WORKERS="<%= p('adminserver.max_job_workers') %>"
+    export SELF_REGISTRATION="<%= p('adminserver.self_registration') %>"
+    export TOKEN_EXPIRATION="<%= p('adminserver.token_expiration') %>"
+    export VERIFY_REMOTE_CERT="<%= p('adminserver.verify_remote_cert') %>"
+    export PROJECT_CREATION_RESTRICTION="<%= p('adminserver.project_creation_restriction') %>"
+    export HARBOR_ADMIN_PASSWORD="<%= p('adminserver.initial_admin_password') %>"
     <% if_p('admiral.url') do |admiral_url| %>
     export ADMIRAL_URL="<%= admiral_url %>"
     <% end %>
     export WITH_NOTARY="false"
     export WITH_CLAIR="false"
-    export RESET="<%= p('reset') %>"
+    export RESET="<%= p('adminserver.reset') %>"
 
     export DATABASE_TYPE=mysql
     export MYSQL_HOST="<%= link('mysql').instances.first.address %>"

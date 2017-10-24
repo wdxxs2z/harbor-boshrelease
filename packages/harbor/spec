@@ -9,3 +9,4 @@ dependencies:
 files:
   - common/utils.sh
   - github.com/vmware/harbor/**/*
+  - harbor/ng-ui.tar.gz

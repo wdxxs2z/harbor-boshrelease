@@ -55,11 +55,6 @@ instance_groups:
             driver: filesystem
             delete:
               enabled: true
-          auth:
-            htpasswd:
-              realm: "Docker Registry Realm"
-              users:
-                admin: ((docker_registry_password))
           http:
             listen_addr: 0.0.0.0
             secret: ((docker_registry_secret))

@@ -39,16 +39,18 @@ cp -a ${BOSH_INSTALL_TARGET}/src/${PACKAGE_NAME}/src/ui/views/* ${BOSH_INSTALL_T
 export PATH=/var/vcap/packages/node_harbor/bin:/var/vcap/packages/phantomjs_harbor/bin:${PATH}
 export NODE_PATH=/var/vcap/packages/node_harbor/lib/node_modules/
 
-mkdir -p ${BOSH_INSTALL_TARGET}/nodeclarity
-cp -a ${BOSH_INSTALL_TARGET}/src/${PACKAGE_NAME}/src/ui_ng/* ${BOSH_INSTALL_TARGET}/nodeclarity
+tar zxf ${BOSH_COMPILE_TARGET}/harbor/ng-ui.tar.gz -C ${BOSH_INSTALL_TARGET}/
+
+#mkdir -p ${BOSH_INSTALL_TARGET}/nodeclarity
+#cp -a ${BOSH_INSTALL_TARGET}/src/${PACKAGE_NAME}/src/ui_ng/* ${BOSH_INSTALL_TARGET}/nodeclarity
 
 pushd ${BOSH_INSTALL_TARGET}/nodeclarity
 export HOME=${BOSH_INSTALL_TARGET}/nodeclarity
-npm install --unsafe-perm -g @angular/cli
-npm install --unsafe-perm
-./node_modules/.bin/ngc -p tsconfig-aot.json
-sed -i 's/* as//g' src/app/shared/gauge/gauge.component.js
-./node_modules/.bin/rollup -c rollup-config.js
+#npm install --unsafe-perm -g @angular/cli
+#npm install --unsafe-perm
+#./node_modules/.bin/ngc -p tsconfig-aot.json
+#sed -i 's/* as//g' src/app/shared/gauge/gauge.component.js
+#./node_modules/.bin/rollup -c rollup-config.js
 
 cp dist/build.min.js ${BOSH_INSTALL_TARGET}/ui/static/
 cp -r src/i18n/ ${BOSH_INSTALL_TARGET}/ui/static/
