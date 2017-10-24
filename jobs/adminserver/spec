@@ -101,3 +101,10 @@ properties:
     description: "Tf your SMTP server requires SSL, but does not support STARTTLS, then you should set this property to true"
   email.from:
     description: "SMTP From address"
+
+  uaa.endpoint:
+    description: "UAA address"
+  uaa.client.id:
+    description: "UAA client id"
+  uaa.client.secret:
+    description: "UAA client secret"

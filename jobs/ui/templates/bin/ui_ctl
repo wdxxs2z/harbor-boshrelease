@@ -22,8 +22,9 @@ case $1 in
     mkdir -p /harbor
     cp /var/vcap/packages/harbor/ui/VERSION /harbor/VERSION
 
-    mkdir -p /etc/ui
+    mkdir -p /etc/ui//certificates
     cp /var/vcap/jobs/ui/config/private_key.pem /etc/ui/private_key.pem
+    cp /var/vcap/jobs/ui/config/uaa_ca.pem /etc/ui/certificates/uaa_ca.pem
 
     export ADMIN_SERVER_URL="http://<%= link('adminserver').instances.first.address %>:<%= link('adminserver').p('adminserver.port') %>"
     export CONFIG_PATH="/var/vcap/jobs/ui/config/app.conf"

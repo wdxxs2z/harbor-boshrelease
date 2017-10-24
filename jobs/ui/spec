@@ -9,6 +9,7 @@ templates:
   config/app.conf: config/app.conf
   config/key: config/key
   config/private_key.pem: config/private_key.pem
+  config/uaa_ca.pem: config/uaa_ca.pem
 
 provides:
   - name: ui
@@ -36,3 +37,6 @@ properties:
     description: "UI secret"
   ui.private_key:
     description: "UI private key (PEM format)"
+
+  uaa.cacert:
+    description: "UAA server ca certifica"

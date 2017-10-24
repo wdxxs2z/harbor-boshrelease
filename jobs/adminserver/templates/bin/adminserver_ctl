@@ -105,6 +105,16 @@ case $1 in
     export EMAIL_FROM="<%= email_from %>"
     <% end %>
 
+    <% if_p('uaa.endpoint') do |uaa_endpoint| %>
+    export UAA_ENDPOINT="<%= uaa_endpoint %>"
+    <% end %>
+    <% if_p('uaa.client.id') do |uaa_client_id| %>
+    export UAA_CLIENTID="<%= uaa_client_id %>"
+    <% end %>
+    <% if_p('uaa.client.secret') do |uaa_client_secret| %>
+    export UAA_CLIENTSECRET="<%= uaa_client_secret %>"
+    <% end %>
+
     exec adminserver \
       >>  ${LOG_DIR}/adminserver.stdout.log \
       2>> ${LOG_DIR}/adminserver.stderr.log
