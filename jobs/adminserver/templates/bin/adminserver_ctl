@@ -105,6 +105,12 @@ case $1 in
     export EMAIL_FROM="<%= email_from %>"
     <% end %>
 
+    export JOBSERVICE_URL="http://<%= link('jobservice').instances.first.address %>:<%= link('jobservice').p('jobservice.port') %>"
+    export UI_URL="http://<%= link('ui').instances.first.address %>:<%= link('ui').p('ui.port') %>"
+
+    <% if_p('uaa.verifycert') do |uaa_verifycert| %>
+      export UAA_VERIFY_CERT="<%= uaa_verifycert %>"
+    <% end %>
     <% if_p('uaa.endpoint') do |uaa_endpoint| %>
     export UAA_ENDPOINT="<%= uaa_endpoint %>"
     <% end %>

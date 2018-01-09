@@ -22,17 +22,17 @@ case $1 in
     mkdir -p /harbor
     cp /var/vcap/packages/harbor/ui/VERSION /harbor/VERSION
 
-    mkdir -p /etc/ui//certificates
+    mkdir -p /etc/ui/certificates
     cp /var/vcap/jobs/ui/config/private_key.pem /etc/ui/private_key.pem
     cp /var/vcap/jobs/ui/config/uaa_ca.pem /etc/ui/certificates/uaa_ca.pem
 
-    export ADMIN_SERVER_URL="http://<%= link('adminserver').instances.first.address %>:<%= link('adminserver').p('adminserver.port') %>"
+    export ADMINSERVER_URL="http://<%= link('adminserver').instances.first.address %>:<%= link('adminserver').p('adminserver.port') %>"
     export CONFIG_PATH="/var/vcap/jobs/ui/config/app.conf"
     export KEY_PATH="/var/vcap/jobs/ui/config/key"
     export LOG_LEVEL="<%= p('ui.log_level') %>"
     export UI_SECRET="<%= p('ui.secret') %>"
     export JOBSERVICE_SECRET="<%= link('jobservice').p('jobservice.secret') %>"
-    export JOB_SERVICE_URL="http://<%= link('jobservice').instances.first.address %>:<%= link('jobservice').p('jobservice.port') %>"
+    export JOBSERVICE_URL="http://<%= link('jobservice').instances.first.address %>:<%= link('jobservice').p('jobservice.port') %>"
     export UI_URL="http://<%= link('ui').instances.first.address %>:<%= link('ui').p('ui.port') %>"
 
     # We cannot configure the `static` templates dir, so we need to be in that directory

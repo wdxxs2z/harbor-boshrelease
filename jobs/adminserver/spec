@@ -108,3 +108,6 @@ properties:
     description: "UAA client id"
   uaa.client.secret:
     description: "UAA client secret"
+  uaa.verifycert:
+    description: "UAA client verify cert."
+    default: false
