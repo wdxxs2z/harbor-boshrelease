@@ -10,7 +10,7 @@ cp -a ${BOSH_COMPILE_TARGET}/common/* ${BOSH_INSTALL_TARGET}/common
 export GOROOT=/var/vcap/packages/golang_harbor/go
 export PATH=${GOROOT}/bin:${PATH}
 
-VERSION=v1.2.0
+VERSION=v1.3.0
 PACKAGE_NAME=github.com/vmware/harbor
 mkdir -p ${BOSH_INSTALL_TARGET}/src/${PACKAGE_NAME}
 cp -a ${BOSH_COMPILE_TARGET}/${PACKAGE_NAME}/* ${BOSH_INSTALL_TARGET}/src/${PACKAGE_NAME}
@@ -62,6 +62,18 @@ cp node_modules/clarity-icons/clarity-icons.min.js ${BOSH_INSTALL_TARGET}/ui/sta
 cp node_modules/clarity-ui/clarity-ui.min.css ${BOSH_INSTALL_TARGET}/ui/static/
 cp -r node_modules/clarity-icons/shapes/ ${BOSH_INSTALL_TARGET}/ui/static/
 popd
+
+# Copy database schema
+mkdir -p ${BOSH_INSTALL_TARGET}/db
+cp ${BOSH_INSTALL_TARGET}/src/${PACKAGE_NAME}/make/common/db/registry.sql ${BOSH_INSTALL_TARGET}/db/registry.sql
+sed -i '/drop database/d' ${BOSH_INSTALL_TARGET}/db/registry.sql
+sed -i '/create database/d' ${BOSH_INSTALL_TARGET}/db/registry.sql
+sed -i '/use registry/d' ${BOSH_INSTALL_TARGET}/db/registry.sql
+
+# Copy database migration
+mkdir -p ${BOSH_INSTALL_TARGET}/db/harbor-migration
+cp -a ${BOSH_INSTALL_TARGET}/src/${PACKAGE_NAME}/tools/migration/* ${BOSH_INSTALL_TARGET}/db/harbor-migration
+sed -i 's/^sqlalchemy.url.*/sqlalchemy.url = mysql:\/\/${MYSQL_USR}:${MYSQL_PWD}@${MYSQL_HOST}:${MYSQL_PORT}\/${MYSQL_DATABASE}/g' ${BOSH_INSTALL_TARGET}/db/harbor-migration/alembic.tpl
 
 # Clean artifats
 rm -rf ${BOSH_INSTALL_TARGET}/pkg ${BOSH_INSTALL_TARGET}/src ${BOSH_INSTALL_TARGET}/nodeclarity

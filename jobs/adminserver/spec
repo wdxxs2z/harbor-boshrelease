@@ -3,10 +3,13 @@ name: adminserver
 
 packages:
   - harbor
+  - python_harbor
+  - mysqlclient_harbor
 
 templates:
   bin/adminserver_ctl: bin/adminserver_ctl
   config/key: config/key
+  bin/pre-start: bin/pre-start
 
 provides:
   - name: adminserver
